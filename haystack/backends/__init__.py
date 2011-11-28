@@ -510,10 +510,10 @@ class BaseSearchQuery(object):
 
         if len(self.models):
             models = sorted(['%s:%s.%s' % (DJANGO_CT, model._meta.app_label, model._meta.module_name) for model in self.models])
-            models_clause = ' OR '.join(models)
+            models_clause = u' OR '.join(models)
 
             if query != self.matching_all_fragment():
-                final_query = '(%s) AND (%s)' % (query, models_clause)
+                final_query = u'(%s) AND (%s)' % (query, models_clause)
             else:
                 final_query = models_clause
         else:
@@ -525,7 +525,7 @@ class BaseSearchQuery(object):
             for boost_word, boost_value in self.boost.items():
                 boost_list.append(self.boost_fragment(boost_word, boost_value))
 
-            final_query = "%s %s" % (final_query, " ".join(boost_list))
+            final_query = u"%s %s" % (final_query, u" ".join(boost_list))
 
         return final_query
 
